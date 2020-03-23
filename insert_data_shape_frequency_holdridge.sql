@@ -32,7 +32,7 @@ INSERT INTO niamoto_portal.data_shape_frequency(class_object, class_name, class_
 UNION ALL
 
 INSERT INTO niamoto_portal.data_shape_frequency(class_object, class_name, class_value, shape_id)
-	SELECT 'holdridge_forestout' class_object,
+	SELECT 'holdridge_forest_out' class_object,
 		hc.classe,
 		Case when (hc.pixelcount-hc_forest.pixelcount) >0 then round(((hc.pixelcount-hc_forest.pixelcount)::float/sap.allpixel)::numeric,2) else 0 end  class_value,
 		hc.gid_emprise shape_id 
