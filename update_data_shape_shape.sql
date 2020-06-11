@@ -2,5 +2,5 @@
 
 SET fragment_meff_cbc = (
 SELECT  fragment_meff_cbc
-FROM atlas_pn.pn_emprises pe
+FROM niamoto_preprocess.emprises pe
 WHERE pe.gid=id) 
