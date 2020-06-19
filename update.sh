@@ -81,16 +81,16 @@ exit=0
 while true; do
     case "$1" in 
         -f|--full)
-            FULL="$5";
+            FULL="$6";
             shift;;
         -p|--password)
-            export PGPASSWORD="$5";
+            export PGPASSWORD="$6";
             shift;;
         -P|--push)
-            PUSH="$5";
+            PUSH="$6";
             shift;;
         -s|--sshpassword)
-            SSHPASSWORD="$5";
+            SSHPASSWORD="$6";
             shift;;
         -h|--help)
             usage;
