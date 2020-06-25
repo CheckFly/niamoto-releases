@@ -60,7 +60,7 @@ traitement(){
     then
         echo "************************* Push data *************************************************"
         # connect virtualenv
-        sudo docker exec niamoto-django-local_niamoto-django_1 bash python ~/niamoto-portal/manage.py dumpdata --exclude=contenttypes > /home/niamoto/data.json
+        sudo docker exec niamoto-django-local_niamoto-django_1 bash generate_data.sh
         sshpass -p $SSHPASSWORD scp -P $PORT /home/niamoto-portal/data/data.json niamoto@niamoto.ddns.net:/home/niamoto/data
         sshpass -p $SSHPASSWORD ssh -p $PORT niamoto@niamoto.ddns.net sudo bash /home/niamoto/update.niamoto-docker.sh
     fi 
