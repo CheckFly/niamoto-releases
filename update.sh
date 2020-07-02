@@ -62,9 +62,9 @@ traitement(){
         # connect virtualenv
         sudo docker exec niamoto-django-local_niamoto-django_1 bash generate_data.sh
         sudo mv ~/data/data.json ~/
-        sshpass -p $SSHPASSWORD scp -P $PORT ~/data.json niamoto@niamoto.ddns.net:/home/niamoto
-        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto@niamoto.ddns.net sudo mv /home/niamoto/data.json /home/niamoto/data
-        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto@niamoto.ddns.net sudo bash /home/niamoto/update.niamoto-docker.sh
+        sshpass -p $SSHPASSWORD scp -P $PORT ~/data.json niamoto.ddns.net:/home/niamoto-portal
+        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net sudo mv /home/niamoto-portal/data.json /home/niamoto-portal/data
+        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net sudo bash /home/niamoto-portal/update.niamoto-docker.sh
     fi 
 }
 
