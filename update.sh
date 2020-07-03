@@ -64,7 +64,7 @@ traitement(){
         sudo mv ~/data/data.json ~/
         sshpass -p $SSHPASSWORD scp -P $PORT ~/data.json niamoto.ddns.net:/home/niamoto-portal
         sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net sudo mv /home/niamoto-portal/data.json /home/niamoto-portal/data
-        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net sudo bash /home/niamoto-portal/update.niamoto-docker.sh
+        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net sudo bash "${NIAMOTO_COMPOSE}/update.sh"
     fi 
 }
 
