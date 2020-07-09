@@ -19,6 +19,7 @@ DECLARE passed BOOLEAN;
 				SELECT niamoto_portal.insert_shape_frequency_holdridge() INTO passed;
 				SELECT niamoto_portal.insert_shape_frequency_fragmentation() INTO passed;
                 SELECT niamoto_portal.insert_taxon() INTO passed;
+                SELECT niamoto_portal.insert_list_tree() INTO passed;
 
                 RETURN 1;
         END;

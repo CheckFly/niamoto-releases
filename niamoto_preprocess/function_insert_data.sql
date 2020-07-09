@@ -20,7 +20,8 @@ AS $BODY$
 				SELECT * FROM atlas_pn.pn_emprises_raster;
 				INSERT INTO niamoto_preprocess.carto_forest
 				SELECT * FROM atlas_pn.pn_carto_forest;
-		
+				INSERT INTO niamoto_preprocess.taxon_referentiel
+				SELECT * FROM occurences.letouze_taxon_referentiel
                 RETURN 1;
         END;
 $BODY$;

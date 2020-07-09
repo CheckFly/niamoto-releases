@@ -142,6 +142,41 @@ AS $BODY$
 			ALTER TABLE niamoto_preprocess.carto_forest
 				OWNER to amapiac;
 
+			-- Table: taxon_referentiel
+
+			-- DROP TABLE niamoto_preprocesstaxon_referentiel;
+
+			CREATE TABLE niamoto_preprocess.taxon_referentiel
+			(
+				id_taxon_ref integer NOT NULL,
+				id_rang integer,
+				tax_id_taxon_ref integer,
+				tax2_id_taxon_ref integer,
+				basionyme double precision,
+				nom_taxon_ref character varying(255) COLLATE pg_catalog."default",
+				statut character varying(1) COLLATE pg_catalog."default",
+				basename character varying(255) COLLATE pg_catalog."default",
+				authors character varying(255) COLLATE pg_catalog."default",
+				nomenclature text COLLATE pg_catalog."default",
+				id_florical integer,
+				id_endemia integer,
+				id_florical2012 integer,
+				id_florical2017 integer,
+				id_ncpippn integer,
+				is_tree boolean DEFAULT false,
+				is_liana boolean DEFAULT false,
+				CONSTRAINT letouze_taxon_referentiel_pkey PRIMARY KEY (id_taxon_ref)
+			)
+			WITH (
+				OIDS = FALSE
+			)
+			TABLESPACE pg_default;
+
+			ALTER TABLE niamoto_preprocess.taxon_referentiel
+				OWNER to amapiac;
+
+			
+
                 RETURN 1;
         END;
 $BODY$;
