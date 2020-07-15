@@ -14,16 +14,18 @@ AS $BODY$
         DECLARE 
             tree CURSOR 
               FOR SELECT * 
-              FROM niamoto_preprocess.taxon 
-              WHERE parent_id IS NULL ORDER BY id;
+              FROM niamoto_preprocess.data_taxon_taxon 
+              WHERE parent_id IS NULL 
+              ORDER BY id_rang, id;
             max_tree_id integer default null;
 
             taxon_rec RECORD;
 
             leaf CURSOR 
               FOR SELECT * 
-              FROM niamoto_preprocess.taxon 
-              WHERE parent_id IS NOT NULL ORDER BY id_rang, id;
+              FROM niamoto_preprocess.data_taxon_taxon 
+              WHERE parent_id IS NOT NULL 
+              ORDER BY id_rang, id;
             leaf_rec RECORD;
 
             gauche_parent BIGINT DEFAULT NULL;
