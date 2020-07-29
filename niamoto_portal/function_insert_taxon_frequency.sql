@@ -40,8 +40,13 @@ UNION ALL
 
 SELECT dtf.taxon_id, dtf.class_object, dtf.class_name, dtf.class_value, dtf.class_index
 	FROM niamoto_preprocess.data_taxon_frequency dtf
-	where dtf.class_object in ('dbh', 'top_species', 'rainfall', 'elevation' ));
-	
+	where dtf.class_object = 'top_species' and dtf.class_index <= 10
+
+UNION ALL
+
+SELECT dtf.taxon_id, dtf.class_object, dtf.class_name, dtf.class_value, dtf.class_index
+	FROM niamoto_preprocess.data_taxon_frequency dtf
+	where dtf.class_object in ('dbh', 'rainfall', 'elevation' ));	
 
 	
                 RETURN 1;
