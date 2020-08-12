@@ -17,7 +17,8 @@ AS $BODY$
 				DROP TABLE IF EXISTS niamoto_preprocess.emprises_holdridge CASCADE;
 				DROP TABLE IF EXISTS niamoto_preprocess.emprises_raster CASCADE;
 				DROP TABLE IF EXISTS niamoto_preprocess.carto_forest CASCADE;
-		
+                DROP TABLE IF EXISTS niamoto_preprocess.taxon_referentiel CASCADE;
+
                 RETURN 1;
         END;
 $BODY$;
