@@ -49,6 +49,7 @@ traitement(){
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_shape_frequency_holdridge.sql"\
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_taxon.sql"\
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_taxon_frequency.sql"\
+    -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_taxon_frequency_stat.sql"\
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_taxon_phenology.sql"
 
     if  [ $FULL = 'y' ]; then
