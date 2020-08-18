@@ -22,6 +22,8 @@ DECLARE passed BOOLEAN;
                 SELECT niamoto_portal.insert_taxon_frequency_phenology() INTO passed;
                 SELECT niamoto_portal.insert_taxon_frequency() INTO passed;
                 SELECT niamoto_portal.insert_taxon_frequency_stat() INTO passed;
+                SELECT niamoto_portal.insert_plot() INTO passed;
+                SELECT niamoto_portal.insert_plot_frequency INTO passed;
                 SELECT niamoto_portal.insert_list_tree() INTO passed;
                 RETURN 1;
                 
