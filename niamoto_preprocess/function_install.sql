@@ -16,7 +16,7 @@ DECLARE passed BOOLEAN;
 				SELECT niamoto_preprocess.drop_table() INTO passed;
 				SELECT niamoto_preprocess.create_table() INTO passed;
 				SELECT niamoto_preprocess.insert_data() INTO passed;
-				SELECT niamoto_preprocess.create_view_mat() INTO passed;
+				-- SELECT niamoto_preprocess.create_view_mat() INTO passed;
 				
 				-- NIAMOTO PORTAL
 				SELECT niamoto_portal.insert_data() INTO passed;

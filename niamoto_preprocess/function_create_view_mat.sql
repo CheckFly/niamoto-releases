@@ -129,24 +129,24 @@ AS $BODY$
 
 -- DROP VIEW niamoto_preprocess.taxon;
 
-CREATE OR REPLACE VIEW niamoto_preprocess.taxon
- AS
- SELECT letouze_taxon_referentiel.id_taxon_ref AS id,
-    letouze_taxon_referentiel.nom_taxon_ref AS full_name,
-    letouze_taxon_referentiel.basename AS rank_name,
-        CASE letouze_taxon_referentiel.id_rang
-            WHEN 10 THEN NULL::integer
-            ELSE letouze_taxon_referentiel.tax_id_taxon_ref
-        END AS parent_id,
-        CASE
-            WHEN letouze_taxon_referentiel.id_endemia IS NULL THEN 0
-            ELSE letouze_taxon_referentiel.id_endemia
-        END AS id_endemia,
-    letouze_taxon_referentiel.id_rang
-   FROM occurences.letouze_taxon_referentiel
-  WHERE letouze_taxon_referentiel.id_ncpippn IS NOT NULL
-  ORDER BY letouze_taxon_referentiel.id_rang, letouze_taxon_referentiel.id_taxon_ref, letouze_taxon_referentiel.tax_id_taxon_ref;
+-- CREATE OR REPLACE VIEW niamoto_preprocess.taxon
+--  AS
+--  SELECT letouze_taxon_referentiel.id_taxon_ref AS id,
+--     letouze_taxon_referentiel.nom_taxon_ref AS full_name,
+--     letouze_taxon_referentiel.basename AS rank_name,
+--         CASE letouze_taxon_referentiel.id_rang
+--             WHEN 10 THEN NULL::integer
+--             ELSE letouze_taxon_referentiel.tax_id_taxon_ref
+--         END AS parent_id,
+--         CASE
+--             WHEN letouze_taxon_referentiel.id_endemia IS NULL THEN 0
+--             ELSE letouze_taxon_referentiel.id_endemia
+--         END AS id_endemia,
+--     letouze_taxon_referentiel.id_rang
+--    FROM occurences.letouze_taxon_referentiel
+--   WHERE letouze_taxon_referentiel.id_ncpippn IS NOT NULL
+--   ORDER BY letouze_taxon_referentiel.id_rang, letouze_taxon_referentiel.id_taxon_ref, letouze_taxon_referentiel.tax_id_taxon_ref;
 
-ALTER TABLE niamoto_preprocess.taxon
-    OWNER TO amapiac;
+-- ALTER TABLE niamoto_preprocess.taxon
+--     OWNER TO amapiac;
 
