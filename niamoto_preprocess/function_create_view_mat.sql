@@ -31,9 +31,9 @@ AS $BODY$
 -- COMMENT ON MATERIALIZED VIEW niamoto_preprocess.shape_emprises_utm
 --     IS 'dd';
 
--- View: niamoto_preprocess.shape_carto_utm
+-- -- View: niamoto_preprocess.shape_carto_utm
 
--- DROP MATERIALIZED VIEW niamoto_preprocess.shape_carto_utm;
+-- -- DROP MATERIALIZED VIEW niamoto_preprocess.shape_carto_utm;
 
 -- CREATE MATERIALIZED VIEW niamoto_preprocess.shape_carto_utm
 -- TABLESPACE pg_default
@@ -45,9 +45,9 @@ AS $BODY$
 -- ALTER TABLE niamoto_preprocess.shape_carto_utm
 --     OWNER TO amapiac;
 
--- View: niamoto_preprocess.shape_forest_emprises_utm
+-- -- View: niamoto_preprocess.shape_forest_emprises_utm
 
--- DROP MATERIALIZED VIEW niamoto_preprocess.shape_forest_emprises_utm;
+-- -- DROP MATERIALIZED VIEW niamoto_preprocess.shape_forest_emprises_utm;
 
 -- CREATE MATERIALIZED VIEW niamoto_preprocess.shape_forest_emprises_utm
 -- TABLESPACE pg_default
@@ -70,9 +70,9 @@ AS $BODY$
 -- ALTER TABLE niamoto_preprocess.shape_forest_emprises_utm
 --     OWNER TO amapiac;
 
--- View: niamoto_preprocess.data_forest
+-- -- View: niamoto_preprocess.data_forest
 
--- DROP MATERIALIZED VIEW niamoto_preprocess.data_forest;
+-- -- DROP MATERIALIZED VIEW niamoto_preprocess.data_forest;
 
 -- CREATE MATERIALIZED VIEW niamoto_preprocess.data_forest
 -- TABLESPACE pg_default
@@ -88,9 +88,9 @@ AS $BODY$
 -- ALTER TABLE niamoto_preprocess.data_forest
 --     OWNER TO amapiac;
 
--- View: niamoto_preprocess.data_stats
+-- -- View: niamoto_preprocess.data_stats
 
--- DROP MATERIALIZED VIEW niamoto_preprocess.data_stats;
+-- -- DROP MATERIALIZED VIEW niamoto_preprocess.data_stats;
 
 -- CREATE MATERIALIZED VIEW niamoto_preprocess.data_stats
 -- TABLESPACE pg_default
@@ -119,8 +119,8 @@ AS $BODY$
 
 		
 --                 RETURN 1;
---         END;
--- $BODY$;
+        END;
+$BODY$;
 
 -- ALTER FUNCTION niamoto_preprocess.create_view_mat()
 --     OWNER TO amapiac;
