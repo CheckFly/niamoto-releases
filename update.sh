@@ -40,7 +40,6 @@ traitement(){
     -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_drop_table.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_create_view_mat.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_insert_data.sql" \
-    -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_quartiles.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_data.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_shape.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_shape_frequency_cover.sql" \

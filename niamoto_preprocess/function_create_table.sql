@@ -176,6 +176,22 @@ AS $BODY$
 				OWNER to amapiac;
 
 			
+			CREATE TABLE niamoto_preprocess.shape_forest_emprises_utm
+			(
+				gid integer,
+				name character varying(50) COLLATE pg_catalog."default" NOT NULL,
+				is_within boolean,
+				geom geometry(Multipolygon,32758)
+			)
+			WITH (
+				OIDS = FALSE
+			)
+			TABLESPACE pg_default;
+
+			ALTER TABLE niamoto_preprocess.shape_forest_emprises_utm
+				OWNER to amapiac;
+
+			
 
                 RETURN 1;
         END;
