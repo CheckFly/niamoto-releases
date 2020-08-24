@@ -53,7 +53,7 @@ traitement(){
 
     if  [ $FULL = 'y' ]; then
         echo "************************* preLoad data *************************************************"
-        psql -d amapiac -h niamoto.ird.nc -U amapiac -w -c "SELECT niamoto_portal.install();"
+        psql -d amapiac -h niamoto.ird.nc -U amapiac -w -c "SELECT niamoto_preprocess.install();"
     else
         echo "************************* No preLoad data ******************************************" 
     fi
