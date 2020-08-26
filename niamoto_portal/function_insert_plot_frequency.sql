@@ -13,7 +13,7 @@ AS $BODY$
 
         BEGIN
 
-
+        ALTER SEQUENCE data_plot_frequency_id_seq RESTART WITH 1
         INSERT INTO niamoto_portal.data_plot_frequency (class_object,class_name, class_value, plot_id, param3_float)
 
         select * from (

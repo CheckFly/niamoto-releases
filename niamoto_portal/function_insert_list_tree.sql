@@ -15,6 +15,8 @@ AS $BODY$
 		
             TRUNCATE niamoto_portal.portal_tree;
 
+            ALTER SEQUENCE portal_tree_id_seq RESTART WITH 1
+
             INSERT INTO niamoto_portal.portal_tree (
                 id_species,
                 id_endemia,

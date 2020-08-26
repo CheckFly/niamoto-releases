@@ -25,6 +25,7 @@ DECLARE passed BOOLEAN;
                 SELECT niamoto_portal.insert_plot() INTO passed;
                 SELECT niamoto_portal.insert_plot_frequency() INTO passed;
                 SELECT niamoto_portal.insert_list_tree() INTO passed;
+                SELECT niamoto_portal.insert_ressources() INTO passed;
                 RETURN 1;
                 
         END;

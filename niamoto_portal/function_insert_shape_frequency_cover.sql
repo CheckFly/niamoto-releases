@@ -12,7 +12,8 @@ CREATE OR REPLACE FUNCTION niamoto_portal.insert_shape_frequency_cover(
 AS $BODY$
 
         BEGIN
-		
+
+ALTER SEQUENCE data_shape_frequency_id_seq RESTART WITH 1
 
 --------- forest_cover ------------------------------
 INSERT INTO niamoto_portal.data_shape_frequency(
