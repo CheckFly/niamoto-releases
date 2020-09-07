@@ -55,13 +55,13 @@ AS $BODY$
 		from niamoto_preprocess.data_plot_frequency dpf
 		LEFT JOIN familyTop10Total ftt ON dpf.plot_id = ftt.plot_id
 		WHERE exists (select 1 from niamoto_portal.data_plot_plot WHERE id = dpf.plot_id)
-            AND class_object ='familyTop10'
+            AND class_object ='familyTop10' AND param3_float <= 10
         UNION ALL
         select class_object, class_name, round((class_value/total)::numeric,2)*100 class_value, dpf.plot_id,param3_float
 		from niamoto_preprocess.data_plot_frequency dpf
 		LEFT JOIN speciesTop10Total ftt ON dpf.plot_id = ftt.plot_id
 		WHERE exists (select 1 from niamoto_portal.data_plot_plot WHERE id = dpf.plot_id)
-			AND class_object='speciesTop10'
+			AND class_object='speciesTop10' AND param3_float <= 10
         ) as t order by 4,1,5;
 
         RETURN 1;
