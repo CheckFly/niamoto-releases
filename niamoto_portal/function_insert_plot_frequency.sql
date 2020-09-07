@@ -13,7 +13,7 @@ AS $BODY$
 
         BEGIN
 
-        ALTER SEQUENCE niamoto_portal.data_plot_frequency_id_seq RESTART WITH 1;
+        -- ALTER SEQUENCE niamoto_portal.data_plot_frequency_id_seq RESTART WITH 1;
         WITH
             familyTop10Total AS (
                 SELECT plot_id, SUM(class_value) total
