@@ -35,7 +35,7 @@ rainfall_total as (SELECT taxon_id, class_object, case when sum(class_value)>0 t
 	where class_object = 'rainfall'
 	GROUP BY taxon_id, class_object)
 
-ALTER SEQUENCE data_taxon_frequency_id_seq RESTART WITH 1
+ALTER SEQUENCE data_taxon_frequency_id_seq RESTART WITH 1;
 
 INSERT INTO niamoto_portal.data_taxon_frequency (taxon_id, class_object, class_name, class_value, param3_float) 				  
 (SELECT dtf.taxon_id, dtf.class_object, dtf.class_name, round((dtf.class_value/st.total)::numeric,2)*100 class_value, dtf.class_index
