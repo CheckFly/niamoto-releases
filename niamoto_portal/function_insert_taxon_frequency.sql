@@ -12,7 +12,7 @@ CREATE OR REPLACE FUNCTION niamoto_portal.insert_taxon_frequency(
 AS $BODY$
 
         BEGIN
-		ALTER SEQUENCE data_taxon_frequency_id_seq RESTART WITH 1;
+		ALTER SEQUENCE niamoto_portal.data_taxon_frequency_id_seq RESTART WITH 1;
 
 	WITH 
 	strate_total as (SELECT taxon_id, class_object, case when sum(class_value)>0 then sum(class_value) else 1 end  total
