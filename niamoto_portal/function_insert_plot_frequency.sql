@@ -13,6 +13,7 @@ AS $BODY$
 
         BEGIN
 
+        ALTER SEQUENCE data_plot_frequency_id_seq RESTART WITH 1;
         WITH
             familyTop10Total AS (
                 SELECT plot_id, SUM(class_value) total
@@ -26,7 +27,6 @@ AS $BODY$
                 WHERE class_object='speciesTop10'
                 GROUP BY plot_id
             )
-
 
         INSERT INTO niamoto_portal.data_plot_frequency (class_object,class_name, class_value, plot_id, param3_float)
 
