@@ -67,7 +67,7 @@ traitement(){
         sudo mv ~/data/data.json ~/
         sshpass -p $SSHPASSWORD scp -P $PORT ~/data.json niamoto.ddns.net:/home/niamoto-portal
         sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net sudo mv /home/niamoto-portal/data.json /home/niamoto-portal/data
-        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net . /home/niamoto-portal/niamoto-docker-compose/update.sh
+        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net "export NIAMOTO_COMPOSE=/home/niamoto-portal/niamoto-docker-compose/; . /home/niamoto-portal/niamoto-docker-compose/update.sh"
     fi 
 }
 
