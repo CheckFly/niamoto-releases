@@ -36,7 +36,7 @@ AS $BODY$
 		where class_object = 'rainfall'
 		GROUP BY taxon_id, class_object)
 
-INSERT INTO niamoto_portal.data_taxon_frequency (taxon_id, class_object, class_name, class_value, param3_float) 				  
+INSERT INTO niamoto_portal.data_taxon_frequency (taxon_id, class_object, class_name, class_value, class_index) 				  
 (SELECT dtf.taxon_id, dtf.class_object, dtf.class_name, round((dtf.class_value/st.total)::numeric,2)*100 class_value, dtf.class_index
 	FROM niamoto_preprocess.data_taxon_frequency dtf
     LEFT JOIN strate_total st ON dtf.taxon_id=st.taxon_id

@@ -25,7 +25,7 @@ pheno_fruit_total as (SELECT taxon_id, class_object, case when sum(class_value)>
 	where class_object = 'pheno_fruit'
 	GROUP BY taxon_id, class_object)
 
-INSERT INTO niamoto_portal.data_taxon_frequency (taxon_id, class_object, class_name, class_value, param3_float) 				  
+INSERT INTO niamoto_portal.data_taxon_frequency (taxon_id, class_object, class_name, class_value, class_index) 				  
 (SELECT dtf.taxon_id, dtf.class_object, dtf.class_name, round((dtf.class_value/pft.total)::numeric,2) class_value, class_index
 	FROM niamoto_preprocess.data_taxon_frequency dtf
 	LEFT JOIN pheno_fleur_total pft ON dtf.taxon_id=pft.taxon_id

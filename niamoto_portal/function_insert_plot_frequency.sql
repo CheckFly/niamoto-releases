@@ -18,17 +18,17 @@ AS $BODY$
             familyTop10Total AS (
                 SELECT plot_id, SUM(class_value) total
                 FROM niamoto_preprocess.data_plot_frequency 
-                WHERE class_object='familyTop10'
+                WHERE class_object='top10_family'
                 GROUP BY plot_id
             ),
             speciesTop10Total AS (
                 SELECT plot_id, SUM(class_value) total
                 FROM niamoto_preprocess.data_plot_frequency 
-                WHERE class_object='speciesTop10'
+                WHERE class_object='top10_species'
                 GROUP BY plot_id
             )
 
-        INSERT INTO niamoto_portal.data_plot_frequency (class_object,class_name, class_value, plot_id, param3_float)
+        INSERT INTO niamoto_portal.data_plot_frequency (class_object,class_name, class_value, plot_id, class_index)
 
         select * from (
         select 'stems' class_object, 'vivante' classname, round(living_stems/total_stems::numeric,2)*100 class_value, id_locality plot_id,2 i from niamoto_preprocess.data_plot_plot WHERE exists (select 1 from niamoto_portal.data_plot_plot WHERE id = id_locality)
@@ -51,17 +51,17 @@ AS $BODY$
         UNION ALL
         select 'strates'  class_object, 'sous-bois' classname,round(understorey/(living_stems)::numeric,2)*100 class_value, id_locality plot_id,4 i from niamoto_preprocess.data_plot_plot WHERE exists (select 1 from niamoto_portal.data_plot_plot WHERE id = id_locality)
         UNION  ALL
-        select class_object, class_name, round((class_value/total)::numeric,2)*100 class_value, dpf.plot_id, param3_float
+        select class_object, class_name, round((class_value/total)::numeric,2)*100 class_value, dpf.plot_id, class_index
 		from niamoto_preprocess.data_plot_frequency dpf
 		LEFT JOIN familyTop10Total ftt ON dpf.plot_id = ftt.plot_id
 		WHERE exists (select 1 from niamoto_portal.data_plot_plot WHERE id = dpf.plot_id)
-            AND class_object ='familyTop10' AND param3_float <= 10
+            AND class_object ='top10_family' AND class_index <= 10
         UNION ALL
-        select class_object, class_name, round((class_value/total)::numeric,2)*100 class_value, dpf.plot_id,param3_float
+        select class_object, class_name, round((class_value/total)::numeric,2)*100 class_value, dpf.plot_id,class_index
 		from niamoto_preprocess.data_plot_frequency dpf
 		LEFT JOIN speciesTop10Total ftt ON dpf.plot_id = ftt.plot_id
 		WHERE exists (select 1 from niamoto_portal.data_plot_plot WHERE id = dpf.plot_id)
-			AND class_object='speciesTop10' AND param3_float <= 10
+			AND class_object='top10_species' AND class_index <= 10
         ) as t order by 4,1,5;
 
         RETURN 1;
