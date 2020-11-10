@@ -13,400 +13,286 @@ AS $BODY$
 
         BEGIN
 		
-        WITH data_forest as (
-            SELECT shape_forest_emprises_utm.gid,
-                shape_forest_emprises_utm.name,
-                st_area(shape_forest_emprises_utm.geom) / 10000::double precision AS aire_patch,
-                shape_forest_emprises_utm.is_within
-            FROM niamoto_preprocess.shape_forest_emprises_utm
-            ORDER BY shape_forest_emprises_utm.gid, (st_area(shape_forest_emprises_utm.geom) / 10000::double precision)
-
-        ),
-        data_stats as ( 
-            SELECT data_forest.gid,
-                        sum(data_forest.aire_patch) AS total
-                    FROM data_forest
-                    GROUP BY data_forest.gid
-                    ORDER BY data_forest.gid)
-
 --extract classes and statistiques for any gid
 INSERT INTO niamoto_portal.data_shape_frequency(
 	class_object, class_name, class_value, shape_id)
 	
     (select * from (
         SELECT 'forest_fragmentation' as class_object,10 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch >=0 AND aire_patch <10))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_10/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id) 
 
         union
 
         SELECT 'forest_fragmentation' as class_object,20 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <20))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_20/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,30 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <30))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_30/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,40 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <40))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_40/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,50 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <50))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
-
+            round((area_ha_50/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
         union
 
         SELECT 'forest_fragmentation' as class_object,60 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <60))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
-
+            round((area_ha_60/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
         union
 
         SELECT 'forest_fragmentation' as class_object,70 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <70))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_70/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,80 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <80))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_80/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,90 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <90))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_90/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,100 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <100))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_100/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,125 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <125))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_125/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,150 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <150))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_150/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,175 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <175))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_175/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,200 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <200))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_200/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,225 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <225))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_225/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,250 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <250))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_250/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,275 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <275))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_275/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,300 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <300))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_300/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,325 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <325))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_325/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,350 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <350))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_350/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,375 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <375))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_375/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,400 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <400))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_400/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,425 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <425))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_425/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,450 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <450))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_450/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,475 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <475))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_475/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,500 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <500))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_500/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,600 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <600))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_600/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,700 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <700))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_700/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,800 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <800))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_800/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,900 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <900))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_900/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1000 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1000))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1000/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1100 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1100))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1100/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1200 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1200))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1200/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1300 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1300))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1300/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1400 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1400))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1400/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1500 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1500))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
-
+            round((area_ha_1500/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
         union
 
         SELECT 'forest_fragmentation' as class_object,1600 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1600))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1600/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1700 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1700))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1700/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1800 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1800))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_1800/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,1900 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <1900))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
-
+            round((area_ha_1900/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
         union
 
         SELECT 'forest_fragmentation' as class_object,2000 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <2000))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_2000/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,7000 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <7000))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_7000/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,12000 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <12000))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_12000/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,17000 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <17000))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_17000/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,22000 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <22000))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_22000/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,27000 as class_name,
-            round(coalesce(((sum(aire_patch) FILTER (WHERE aire_patch <27000))/ds.total),0)::numeric,5) as value , df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total
+            round((area_ha_27000/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
         SELECT 'forest_fragmentation' as class_object,32000 as class_name,
-            1 as value, df.gid as shape_id
-        FROM data_forest df
-        LEFT JOIN data_stats ds ON df.gid=ds.gid
-        GROUP BY df.gid, ds.total) as fragmentation
+            round((coalesce(area_ha_32000,4)/total)::numeric,4) as value , gid as shape_id
+        FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)) as fragmentation
 
         order by shape_id, class_name
     );   

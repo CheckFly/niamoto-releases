@@ -26,7 +26,7 @@ usage(){
 }
 
 version(){
-    echo "update Niamoto Portal version: 0.0.1"
+    echo "update Niamoto Portal version: 0.0.2"
 }
 
 traitement(){
@@ -38,7 +38,6 @@ traitement(){
     psql -d amapiac -h niamoto.ird.nc -U amapiac \
     -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_create_table.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_drop_table.sql" \
-    -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_create_view_mat.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_insert_data.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_data.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_shape.sql" \
@@ -51,12 +50,12 @@ traitement(){
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_taxon_frequency_stat.sql"\
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_taxon_phenology.sql"
 
-    if  [ $FULL = 'y' ]; then
-        echo "************************* preLoad data *************************************************"
-        psql -d amapiac -h niamoto.ird.nc -U amapiac -w -c "SELECT niamoto_preprocess.install();"
-    else
-        echo "************************* No preLoad data ******************************************" 
-    fi
+    # if  [ $FULL = 'y' ]; then
+    #     echo "************************* preLoad data *************************************************"
+    #     psql -d amapiac -h niamoto.ird.nc -U amapiac -w -c "SELECT niamoto_preprocess.install();"
+    # else
+    #     echo "************************* No preLoad data ******************************************" 
+    # fi
     echo "************************* Load data *************************************************"
     psql -d amapiac -h niamoto.ird.nc -U amapiac -w -c "SELECT niamoto_portal.insert_data();"
     if [ $PUSH = 'y' ];
@@ -65,9 +64,9 @@ traitement(){
         # connect virtualenv
         sudo docker exec niamoto-django-local_niamoto-django_1 bash generate_data.sh
         sudo mv ~/data/data.json ~/
-        sshpass -p $SSHPASSWORD scp -P $PORT ~/data.json niamoto.ddns.net:/home/niamoto-portal
-        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net sudo mv /home/niamoto-portal/data.json /home/niamoto-portal/data
-        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.ddns.net "export NIAMOTO_COMPOSE=/home/niamoto-portal/niamoto-docker-compose/; . /home/niamoto-portal/niamoto-docker-compose/update.sh"
+        sshpass -p $SSHPASSWORD scp -P $PORT ~/data.json niamoto.nc:/home/niamoto-portal
+        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.nc sudo mv /home/niamoto-portal/data.json /home/niamoto-portal/data
+        sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.nc "export NIAMOTO_COMPOSE=/home/niamoto-portal/niamoto-docker-compose/; . /home/niamoto-portal/niamoto-docker-compose/update.sh"
     fi 
 }
 
@@ -77,16 +76,16 @@ traitement(){
 
 # -o : options courtes 
 # -l : options longues 
-options=$(getopt -o hfpPsv: --long help,full,password,push,sshpassword,version: -n 'Update Niamoto Portal' -- "$@") 
+options=$(getopt -o hfpPsv: --long help,password,push,sshpassword,version: -n 'Update Niamoto Portal' -- "$@") 
 
 # éclatement de $options en $1, $2... 
 eval set -- $options
 exit=0
 while true; do
     case "$1" in 
-        -f|--full)
-            FULL="$6";
-            shift;;
+        # -f|--full)
+        #     FULL="$6";
+        #     shift;;
         -p|--password)
             export PGPASSWORD="$6";
             shift;;

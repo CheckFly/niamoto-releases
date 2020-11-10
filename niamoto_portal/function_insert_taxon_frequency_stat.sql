@@ -16,7 +16,7 @@ AS $BODY$
 
 INSERT INTO niamoto_portal.data_taxon_frequency (taxon_id, class_object, class_name, class_value) 				  
 (SELECT  1, 'stats', 'sum_occ', sum(occ_count)
-	FROM niamoto_preprocess.data_taxon_taxon where id_rang=10
+	FROM data_preprocess.data_taxon where id_rang=10
 
 
 
