@@ -87,13 +87,13 @@ while true; do
         #     FULL="$6";
         #     shift;;
         -p|--password)
-            export PGPASSWORD="$6";
+            export PGPASSWORD="$5";
             shift;;
         -P|--push)
-            PUSH="$6";
+            PUSH="$5";
             shift;;
         -s|--sshpassword)
-            SSHPASSWORD="$6";
+            SSHPASSWORD="$5";
             shift;;
         -h|--help)
             usage;
