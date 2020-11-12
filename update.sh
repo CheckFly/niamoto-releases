@@ -64,8 +64,11 @@ traitement(){
         # connect virtualenv
         sudo docker exec niamoto-django-local_niamoto-django_1 bash generate_data.sh
         sudo mv ~/data/data.json ~/
+        echo "Upload"
         sshpass -p $SSHPASSWORD scp -P $PORT ~/data.json niamoto.nc:/home/niamoto-portal
+        echo "Move data server"
         sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.nc sudo mv /home/niamoto-portal/data.json /home/niamoto-portal/data
+        echo "Update server"
         sshpass -p $SSHPASSWORD ssh -p $PORT niamoto.nc "export NIAMOTO_COMPOSE=/home/niamoto-portal/niamoto-docker-compose/; . /home/niamoto-portal/niamoto-docker-compose/update.sh"
     fi 
 }
