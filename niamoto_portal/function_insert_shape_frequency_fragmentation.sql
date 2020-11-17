@@ -291,7 +291,7 @@ INSERT INTO niamoto_portal.data_shape_frequency(
         union
 
         SELECT 'forest_fragmentation' as class_object,32000 as class_name,
-            round((coalesce(area_ha_32000,4)/total)::numeric,4) as value , gid as shape_id
+            round((coalesce(area_ha_32000,0)/total)::numeric,4) as value , gid as shape_id
         FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)) as fragmentation
 
         order by shape_id, class_name

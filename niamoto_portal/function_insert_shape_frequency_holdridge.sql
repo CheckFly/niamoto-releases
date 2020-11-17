@@ -27,7 +27,7 @@ INSERT INTO niamoto_portal.data_shape_frequency(class_object, class_name, class_
 
 	UNION ALL SELECT 'holdridge_forest_out', 'Humide', CASE WHEN land_area_ha > 0 THEN  round((land_holdridge2_ha-forest_holdridge2_ha)/land_area_ha::numeric, 2) ELSE 0 END class_value, gid, 2 FROM data_preprocess.emprises WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
-	UNION ALL SELECT 'holdridge_forest_out', 'Très Humide', CASE WHEN land_area_ha > 0 THEN  round((land_holdridge3_ha-forest_holdridge2_ha)/land_area_ha::numeric, 2) ELSE 0 END class_value, gid, 3 FROM data_preprocess.emprises WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
+	UNION ALL SELECT 'holdridge_forest_out', 'Très Humide', CASE WHEN land_area_ha > 0 THEN  round((land_holdridge3_ha-forest_holdridge3_ha)/land_area_ha::numeric, 2) ELSE 0 END class_value, gid, 3 FROM data_preprocess.emprises WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 	) as holdridge
 	order by 4,1,5
 ;
