@@ -278,15 +278,16 @@ INSERT INTO niamoto_portal.data_shape_frequency(
 
         union
 
-        SELECT 'forest_fragmentation' as class_object,22000 as class_name,
-            round((area_ha_22000/total)::numeric,4) as value , gid as shape_id
+        SELECT 'forest_fragmentation' as class_object,27000 as class_name,
+            round((area_ha_27000/total)::numeric,4) as value , gid as shape_id
         FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
 
         union
 
-        SELECT 'forest_fragmentation' as class_object,35000 as class_name,
-            round((area_ha_35000/total)::numeric,4) as value , gid as shape_id
+        SELECT 'forest_fragmentation' as class_object,500000 as class_name,
+            1 as value , gid as shape_id
         FROM data_preprocess.fragmentation WHERE exists (select 1 from niamoto_portal.data_shape_shape WHERE gid = id)
+        ) as fragmentation
 
         order by shape_id, class_name
     );   
