@@ -36,9 +36,6 @@ traitement(){
     echo ""
     echo "************************* Installation function SQL *********************************"
     psql -d amapiac -h niamoto.ird.nc -U amapiac \
-    -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_create_table.sql" \
-    -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_drop_table.sql" \
-    -f "${NIAMOTO_RELEASES}/niamoto_preprocess/function_insert_data.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_data.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_shape.sql" \
     -f "${NIAMOTO_RELEASES}/niamoto_portal/function_insert_shape_frequency_cover.sql" \
